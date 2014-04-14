@@ -1,0 +1,19 @@
+[global_config]
+  title_receive_bg_color = "#66d9ef"
+  title_transmit_bg_color = "#ab2654"
+[keybindings]
+[profiles]
+  [[default]]
+    use_system_font = False
+    font = Mono 9
+    background_image = None
+    background_color = "#272822"
+[layouts]
+  [[default]]
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+    [[[window0]]]
+      type = Window
+      parent = ""
+[plugins]

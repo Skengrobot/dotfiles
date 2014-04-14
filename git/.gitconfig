@@ -1,0 +1,10 @@
+[user]
+	name = Rudi Plesch
+	email = rudi.plesch@gmail.com
+[color]
+	ui = true
+[core]
+	autocrlf = input
+    safecrlf = false
+[alias]
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
