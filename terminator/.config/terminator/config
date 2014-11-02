@@ -5,7 +5,7 @@
 [profiles]
   [[default]]
     use_system_font = False
-    font = Mono 9
+    font = Mono 8
     background_image = None
     background_color = "#272822"
 [layouts]
