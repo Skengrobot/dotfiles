@@ -5,7 +5,12 @@
 [profiles]
   [[default]]
     use_system_font = False
+<<<<<<< HEAD
     font = Mono 9
+=======
+    font = Mono 8
+    background_image = None
+>>>>>>> 265c7d307044fa47e07dbc4d8aef4c81e2e4e842
     background_color = "#272822"
     background_image = None
 [layouts]
