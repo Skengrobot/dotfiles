@@ -6,8 +6,8 @@
   [[default]]
     use_system_font = False
     font = Mono 9
-    background_image = None
     background_color = "#272822"
+    background_image = None
 [layouts]
   [[default]]
     [[[child1]]]
