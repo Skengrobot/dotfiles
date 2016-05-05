@@ -2,6 +2,29 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+# GIT branch display on prompt
+# this will print either nothing or "[<branch>]" or "[<branch>](merge pending)"
+print_git_branch() {
+  # Locate the root of the git repo.  This might be a little slow.
+  # If it causes problems, you can change this to set gitroot to ".",
+  # but then it will only show info when in the repo root.
+  gitroot=`git rev-parse --show-toplevel 2>/dev/null`
+  if [ $? -ne 0 ]; then
+    # # Not in a git repo.
+    return
+  fi
+  # Check the current branch.
+  if [ -f "$gitroot/.git/HEAD" ]; then
+    # # The HEAD file is usually "ref: refs/heads/<branch>", although
+    # # in a "detached HEAD" state, it is a raw SHA1 hash.
+    sed -e 's,^ref: refs/heads/,,' -e 's/^/[/' -e 's/$/]/' "$gitroot/.git/HEAD" | tr -d '\r\n'
+  fi
+  # # Check for a pending merge.
+  if [ -f "$gitroot/.git/MERGE_HEAD" ]; then
+    echo -n '(merge pending)'
+  fi
+}
+
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
@@ -54,7 +77,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]`print_git_branch`\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -114,3 +137,28 @@ export LD_LIBRARY_PATH
 
 # 256 colout supprt in terminal
 export TERM=xterm-256color
+
+# Docker aliases
+alias dl='docker run -it -v /Users/rudi/Documents/QDK:/QDK quay.io/1qb_information_technologies/qdkdev bash' # login and start the container.                                                                                                                          
+alias da='docker attach' # list all images                                                                                                                                                                                                                         
+alias di='docker images' # list all images                                                                                                                                                                                                                                
+alias dm='docker-machine' # shorthand for docker-machine                                                                                                                                                                                                                   
+alias dps='docker ps -a' # list all containers                                                                                                                                                                                                                             
+alias drm='docker rm' # remove a container                                                                                                                                                                                                                                 
+alias drmi='docker rmi' # remove an image
+
+# Because docker cp is being stubborn
+# docker - copy files from the host to a container.                                                                                                                                                                                                                         
+# usage:                                                                                                                                                                                                                                                                    
+# cd into a folder on host, then issue:                                                                                                                                                                                                                                     
+# dcp [container_id|container_name] local_path container_path                                                                                                                                                                                                               
+# Example:                                                                                                                                                                                                                                                                  
+# $ dcp foo_container ~/.ssh /root/.ssh/.                                                                                                                                                                                                                                   
+# Copies all the contents of ~/.ssh from the host machine to the /root/.ssh                                                                                                                                                                                                 
+# folder within 'foo_container'                                                                                                                                                                                                                                            
+function dcp {                                                                                                                                                                                                                                                             
+	if [ -d "$2" ]; then cd "$2"; tar -cv * | docker exec -i "$1" tar x -C "$3"; cd - 1>/dev/null                                                                                                                                                                          
+	else cd $(dirname "$2"); tar -cv "$(basename "$2")" | docker exec -i "$1" tar x -C "$3"; cd - 1>/dev/null                                                                                                                                                              
+	fi                                                                                                                                                                                                                                                                      
+}                                                                                                                                                                                                                                                                           
+export -f dcp
