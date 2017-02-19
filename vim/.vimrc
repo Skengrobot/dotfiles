@@ -137,3 +137,21 @@ let g:gitgutter_max_signs = 1000  " Max signs to display in a file
 
 " Make me think CtrlP is Command-T
 let g:ctrlp_map = '<leader>t'
+
+" Use cscope if we got it
+if has('cscope')
+  set cscopetag cscopeverbose
+
+  if has('quickfix')
+    set cscopequickfix=s-,c-,d-,i-,t-,e-
+  endif
+
+  cnoreabbrev csa cs add
+  cnoreabbrev csf cs find
+  cnoreabbrev csk cs kill
+  cnoreabbrev csr cs reset
+  cnoreabbrev css cs show
+  cnoreabbrev csh cs help
+
+  command -nargs=0 Cscope cs add $VIMSRC/src/cscope.out $VIMSRC/src
+endif
