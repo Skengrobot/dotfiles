@@ -22,14 +22,8 @@ Plugin 'rhysd/vim-clang-format'
 Bundle 'jwhitley/vim-colors-solarized'
 " Bundle 'altercation/vim-colors-solarized'
 
-" Automatically comment sections of code
-"Plugin 'scrooloose/nerdcommenter'
-
 " Syntax errors in c++
-Plugin 'scrooloose/syntastic'
-
-" Set marks and get to them
-"Plugin 'kshenoy/vim-signature.git'
+" Plugin 'scrooloose/syntastic'
 
 " Status bar
 Plugin 'vim-airline/vim-airline'
@@ -39,6 +33,9 @@ Plugin 'vim-airline/vim-airline-themes'
 " Use <leader>h[s|u|r|p]
 "   s - hunk stage, u - hunk unstage, r - hunk revert, p - hunk preview
 Plugin 'airblade/vim-gitgutter'
+
+" Easy poops
+Plugin 'easymotion/vim-easymotion'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -72,7 +69,7 @@ set hlsearch
 hi Search cterm=NONE ctermfg=gray ctermbg=184
 set clipboard=unnamed
 " Remove trailing whitespace when writing some filetypes
-autocmd FileType c,cpp,java,py autocmd BufWritePre <buffer> :%s/\s\+$//e
+autocmd FileType c,cpp,java,python autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 set nostartofline
 set confirm " dialog asks if you want to save changes instead of error
@@ -99,11 +96,11 @@ colorscheme solarized
 highlight Visual cterm=NONE ctermbg=DarkBlue ctermfg=LightCyan guibg=Grey40
 
 " Syntastic settings
-let g:syntastic_cpp_compiler_options = ' -std=c++11 -Wall -Werror -Wextra'
-let g:syntastic_check_on_open = 0
-let g:syntastic_error_symbol = "✗"
-let g:syntastic_warning_symbol = "⚠"
-let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_cpp_compiler_options = ' -std=c++11 -Wall -Werror -Wextra'
+" let g:syntastic_check_on_open = 0
+" let g:syntastic_error_symbol = "✗"
+" let g:syntastic_warning_symbol = "⚠"
+" let g:syntastic_always_populate_loc_list = 1
 
 " Airline settings
 let g:airline_powerline_fonts = 0
