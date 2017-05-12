@@ -1,18 +1,48 @@
 [global_config]
   title_receive_bg_color = "#66d9ef"
+<<<<<<< HEAD
   title_transmit_bg_color = "#ab2654"
+=======
+  title_transmit_bg_color = "#d30102"
+  suppress_multiple_term_dialog = True
+>>>>>>> f76ada7a6c5a46084608a2126fa80fa41faa6edc
 [keybindings]
 [profiles]
   [[default]]
     use_system_font = False
     font = Mono 8
+<<<<<<< HEAD
     background_image = None
     background_color = "#272822"
+=======
+    # solarized-dark
+    #palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#586e75:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
+    #foreground_color = "#eee8d5"
+    #background_color = "#002b36"
+    #cursor_color = "#eee8d5"
+
+  [[solarized-dark]]
+    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#586e75:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
+    foreground_color = "#eee8d5"
+    background_color = "#002b36"
+    cursor_color = "#eee8d5"
+
+  [[solarized-light]]
+    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
+    background_color = "#eee8d5"
+    foreground_color = "#002b36"
+    cursor_color = "#002b36"
+
+>>>>>>> f76ada7a6c5a46084608a2126fa80fa41faa6edc
 [layouts]
   [[default]]
     [[[child1]]]
       type = Terminal
       parent = window0
+<<<<<<< HEAD
+=======
+      profile = solarized-dark
+>>>>>>> f76ada7a6c5a46084608a2126fa80fa41faa6edc
     [[[window0]]]
       type = Window
       parent = ""

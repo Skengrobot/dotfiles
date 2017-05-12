@@ -13,7 +13,7 @@ Plugin 'VundleVim/Vundle.vim'
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
-Plugin 'git://git.wincent.com/command-t.git'
+Plugin 'https://github.com/kien/ctrlp.vim.git'
 
 " Vim-clang-format plugin (support auto-styling)
 Plugin 'rhysd/vim-clang-format'
@@ -24,6 +24,8 @@ Bundle 'jwhitley/vim-colors-solarized'
 
 " Syntax errors in c++
 " Plugin 'scrooloose/syntastic'
+" Automatically comment sections of code
+"Plugin 'scrooloose/nerdcommenter'
 
 " Status bar
 Plugin 'vim-airline/vim-airline'
@@ -131,3 +133,24 @@ let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
 let g:gitgutter_signs = 0
 let g:gitgutter_max_signs = 1000  " Max signs to display in a file
+
+" Make me think CtrlP is Command-T
+let g:ctrlp_map = '<leader>t'
+
+" Use cscope if we got it
+if has('cscope')
+  set cscopetag cscopeverbose
+
+  if has('quickfix')
+    set cscopequickfix=s-,c-,d-,i-,t-,e-
+  endif
+
+  cnoreabbrev csa cs add
+  cnoreabbrev csf cs find
+  cnoreabbrev csk cs kill
+  cnoreabbrev csr cs reset
+  cnoreabbrev css cs show
+  cnoreabbrev csh cs help
+
+  command -nargs=0 Cscope cs add $VIMSRC/src/cscope.out $VIMSRC/src
+endif

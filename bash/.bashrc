@@ -77,7 +77,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]`print_git_branch`\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[0;49;93m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]`print_git_branch`\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -137,28 +137,3 @@ export LD_LIBRARY_PATH
 
 # 256 colout supprt in terminal
 export TERM=xterm-256color
-
-# Docker aliases
-alias dl='docker run -it -v /Users/rudi/Documents/QDK:/QDK quay.io/1qb_information_technologies/qdkdev bash' # login and start the container.                                                                                                                          
-alias da='docker attach' # list all images                                                                                                                                                                                                                         
-alias di='docker images' # list all images                                                                                                                                                                                                                                
-alias dm='docker-machine' # shorthand for docker-machine                                                                                                                                                                                                                   
-alias dps='docker ps -a' # list all containers                                                                                                                                                                                                                             
-alias drm='docker rm' # remove a container                                                                                                                                                                                                                                 
-alias drmi='docker rmi' # remove an image
-
-# Because docker cp is being stubborn
-# docker - copy files from the host to a container.                                                                                                                                                                                                                         
-# usage:                                                                                                                                                                                                                                                                    
-# cd into a folder on host, then issue:                                                                                                                                                                                                                                     
-# dcp [container_id|container_name] local_path container_path                                                                                                                                                                                                               
-# Example:                                                                                                                                                                                                                                                                  
-# $ dcp foo_container ~/.ssh /root/.ssh/.                                                                                                                                                                                                                                   
-# Copies all the contents of ~/.ssh from the host machine to the /root/.ssh                                                                                                                                                                                                 
-# folder within 'foo_container'                                                                                                                                                                                                                                            
-function dcp {                                                                                                                                                                                                                                                             
-	if [ -d "$2" ]; then cd "$2"; tar -cv * | docker exec -i "$1" tar x -C "$3"; cd - 1>/dev/null                                                                                                                                                                          
-	else cd $(dirname "$2"); tar -cv "$(basename "$2")" | docker exec -i "$1" tar x -C "$3"; cd - 1>/dev/null                                                                                                                                                              
-	fi                                                                                                                                                                                                                                                                      
-}                                                                                                                                                                                                                                                                           
-export -f dcp

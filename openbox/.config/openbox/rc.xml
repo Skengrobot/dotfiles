@@ -42,7 +42,11 @@
                   'Active' - where the active window is -->
   </placement>
   <theme>
+<<<<<<< HEAD
     <name>dumetella</name>
+=======
+    <name>Greybird-ob</name>
+>>>>>>> f76ada7a6c5a46084608a2126fa80fa41faa6edc
     <titleLayout>NLIMC</titleLayout>
     <!--
       available characters are NDSLIMC, each can occur at most once.
