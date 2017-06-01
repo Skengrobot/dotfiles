@@ -10,9 +10,10 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
+" Smart completions
+Plugin 'Valloric/YouCompleteMe'
+
+" Fake command-t but better
 Plugin 'https://github.com/kien/ctrlp.vim.git'
 
 " Vim-clang-format plugin (support auto-styling)
@@ -77,7 +78,6 @@ set nostartofline
 set confirm " dialog asks if you want to save changes instead of error
 set wrap " wrap lines off screen to next line
 set number " enable line numbers
-set relativenumber
 set ruler " show column and row number of cursor
 set cmdheight=2 " height of command window
 set nobackup " no darn tmp files
@@ -138,19 +138,19 @@ let g:gitgutter_max_signs = 1000  " Max signs to display in a file
 let g:ctrlp_map = '<leader>t'
 
 " Use cscope if we got it
-if has('cscope')
-  set cscopetag cscopeverbose
-
-  if has('quickfix')
-    set cscopequickfix=s-,c-,d-,i-,t-,e-
-  endif
-
-  cnoreabbrev csa cs add
-  cnoreabbrev csf cs find
-  cnoreabbrev csk cs kill
-  cnoreabbrev csr cs reset
-  cnoreabbrev css cs show
-  cnoreabbrev csh cs help
-
-  command -nargs=0 Cscope cs add $VIMSRC/src/cscope.out $VIMSRC/src
-endif
+" if has('cscope')
+"   set cscopetag cscopeverbose
+"
+"   if has('quickfix')
+"     set cscopequickfix=s-,c-,d-,i-,t-,e-
+"   endif
+"
+"   cnoreabbrev csa cs add
+"   cnoreabbrev csf cs find
+"   cnoreabbrev csk cs kill
+"   cnoreabbrev csr cs reset
+"   cnoreabbrev css cs show
+"   cnoreabbrev csh cs help
+"
+"   command -nargs=0 Cscope cs add $VIMSRC/src/cscope.out $VIMSRC/src
+" endif

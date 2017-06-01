@@ -134,8 +134,6 @@ export LD_LIBRARY_PATH
 
 # 256 colout supprt in terminal
 export TERM=xterm-256color
-<<<<<<< Updated upstream
-=======
 
 # Docker aliases
 alias dl='docker run -it -v /Users/rudi/QDK:/QDK quay.io/1qb_information_technologies/qdkdev bash' # login and start the container.                                                                                                                          
@@ -202,4 +200,3 @@ export LDFLAGS="$LDFLAGS -L/usr/local/opt/llvm37/lib/llvm-3.7/lib"
 
 #QDKEXT Python path
 export PYTHONPATH=$PYTHONPATH:~/gerrit/QDKEXT/
->>>>>>> Stashed changes
