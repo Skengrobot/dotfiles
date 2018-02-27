@@ -23,19 +23,9 @@ Plugin 'rhysd/vim-clang-format'
 Bundle 'jwhitley/vim-colors-solarized'
 " Bundle 'altercation/vim-colors-solarized'
 
-" Syntax errors in c++
-" Plugin 'scrooloose/syntastic'
-" Automatically comment sections of code
-"Plugin 'scrooloose/nerdcommenter'
-
 " Status bar
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-
-" Vim git-gutter plugin for showing changes realtime.
-" Use <leader>h[s|u|r|p]
-"   s - hunk stage, u - hunk unstage, r - hunk revert, p - hunk preview
-Plugin 'airblade/vim-gitgutter'
 
 " Easy poops
 Plugin 'easymotion/vim-easymotion'
@@ -97,13 +87,6 @@ colorscheme solarized
 " Visual mode colour override for solarized.
 highlight Visual cterm=NONE ctermbg=DarkBlue ctermfg=LightCyan guibg=Grey40
 
-" Syntastic settings
-" let g:syntastic_cpp_compiler_options = ' -std=c++11 -Wall -Werror -Wextra'
-" let g:syntastic_check_on_open = 0
-" let g:syntastic_error_symbol = "✗"
-" let g:syntastic_warning_symbol = "⚠"
-" let g:syntastic_always_populate_loc_list = 1
-
 " Airline settings
 let g:airline_powerline_fonts = 0
 let g:airline_left_sep = ''
@@ -128,14 +111,13 @@ hi StatusLine ctermbg=White ctermfg=Black
 " nnoremap <C-K> :ClangFormat<CR>
 vnoremap <C-K> :ClangFormat<CR>
 
-" Vim gitgutter should not update realtime.
-let g:gitgutter_realtime = 0
-let g:gitgutter_eager = 0
-let g:gitgutter_signs = 0
-let g:gitgutter_max_signs = 1000  " Max signs to display in a file
-
 " Make me think CtrlP is Command-T
 let g:ctrlp_map = '<leader>t'
+" Make CtrlP ignore directories
+let g:ctrlp_custom_ignore = {'dir': 'sphinx\|doxygen\|build$\|Q4Q\|bin$\|package'}
+
+" .i files use cpp highlighting
+autocmd BufNewFile,BufReadPost *.i set filetype=cpp
 
 " Use cscope if we got it
 " if has('cscope')
