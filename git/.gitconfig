@@ -17,4 +17,6 @@
 [difftool]
   prompt = false
 [push]
-	default = matching
+  default = current
+[commit]
+	gpgsign = true

@@ -126,67 +126,6 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-# Aliases
-
-# Custom variables
-LD_LIBRARY_PATH=/usr/local/lib/
-export LD_LIBRARY_PATH
-
-# 256 colout supprt in terminal
-export TERM=xterm-256color
-
-# Docker aliases
-alias dl='docker run -it -v /Users/rudi/QDK:/QDK quay.io/1qb_information_technologies/qdkdev bash' # login and start the container.                                                                                                                          
-alias da='docker attach' # list all images                                                                                                                                                                                                                         
-alias di='docker images' # list all images                                                                                                                                                                                                                                
-alias dm='docker-machine' # shorthand for docker-machine                                                                                                                                                                                                                   
-alias dps='docker ps -a' # list all containers                                                                                                                                                                                                                             
-alias drm='docker rm' # remove a container                                                                                                                                                                                                                                 
-alias drmi='docker rmi' # remove an image
-
-alias cscope_gen='/usr/local/bin/cscope -b -q -icscope.files'
-
-# Because docker cp is being stubborn
-# docker - copy files from the host to a container.                                                                                                                                                                                                                         
-# usage:                                                                                                                                                                                                                                                                    
-# cd into a folder on host, then issue:                                                                                                                                                                                                                                     
-# dcp [container_id|container_name] local_path container_path                                                                                                                                                                                                               
-# Example:                                                                                                                                                                                                                                                                  
-# $ dcp foo_container ~/.ssh /root/.ssh/.                                                                                                                                                                                                                                   
-# Copies all the contents of ~/.ssh from the host machine to the /root/.ssh                                                                                                                                                                                                 
-# folder within 'foo_container'                                                                                                                                                                                                                                            
-function dcp {                                                                                                                                                                                                                                                             
-	if [ -d "$2" ]; then cd "$2"; tar -cv * | docker exec -i "$1" tar x -C "$3"; cd - 1>/dev/null                                                                                                                                                                          
-	else cd $(dirname "$2"); tar -cv "$(basename "$2")" | docker exec -i "$1" tar x -C "$3"; cd - 1>/dev/null                                                                                                                                                              
-	fi                                                                                                                                                                                                                                                                      
-}                                                                                                                                                                                                                                                                           
-export -f dcp
-
-# Script to cleanly build QDK
-function mk {
-    pushd .; cd ~/Documents/scripts/ && ./make_qdk.sh "$1" "$2" ; popd >/dev/null
-}
- 
-function mkall {
-    pushd .; cd ~/Documents/scripts/ && ./make_qdk.sh all "$1" "$2" ; popd >/dev/null
-} 
-
-# 1QBit proxy setup
-function wfh(){
- 
-    if [ -z "$1" ]
-    then
-        echo "1Qbit Quantum Tunelling!";
-        sudo networksetup -setsocksfirewallproxy "Wi-Fi" 127.0.0.1 12817;
-        sudo networksetup -setsocksfirewallproxystate "Wi-Fi" on;
-        ssh -D 12817 oneqbit@1qb.it;
-    elif [ "$1" = "off" ]
-    then
-        sudo networksetup -setsocksfirewallproxystate "Wi-Fi" off;
-        echo "1Qbit Quantum Tunelling Off!";
-    fi
-}
-
 # Set manpages to vim.
 export MANPAGER="col -b | /usr/local/bin/vim -c 'set ft=man ts=8 nomod nolist nonu' -c 'nnoremap i <nop>' -"
 
@@ -198,5 +137,23 @@ export CXX="clang++-3.7 -stdlib=libc++"
 export CMAKE_CXX_FLAGS="$CMAKE_CXX_FLAGS -I/usr/local/opt/llvm37/lib/llvm-3.7/include/c++/v1"
 export LDFLAGS="$LDFLAGS -L/usr/local/opt/llvm37/lib/llvm-3.7/lib"
 
+alias python=/usr/local/bin/python2
 #QDKEXT Python path
-export PYTHONPATH=$PYTHONPATH:~/gerrit/QDKEXT/
+export PYTHONPATH=$PYTHONPATH:~/gerrit/QDKEXT/:/usr/local/opt/qdk_python/
+
+# Add the swig fork to path
+export PATH=/usr/local/opt/python@2/bin:$PATH
+export PATH=$PATH:~/gerrit/swig/swig_installation/bin
+
+# Add valgrind to the path
+export PATH=/Users/rudi/bin/bin:$PATH
+
+# Run gpg-agent
+[ -f ~/.gnupg/gpg-agent.env ] && source ~/.gnupg/gpg-agent.env
+if [ -S "${GPG_AGENT_INFO%%:*}" ]; then
+  export GPG_AGENT_INFO
+else
+  eval $(gpg-agent --daemon -q --log-file /tmp/gpg.log ~/.gnupg/gpg-agent.env --pinentry-program /usr/local/bin/pinentry-mac)
+fi
+
+export INTEL_NO_CONNECTION_CHECK=1
